@@ -1,0 +1,111 @@
+package com.example.blogtest.errors;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Slf4j
+//모든 컨트롤러에서 발생하는 예외를 이 클래스에서 처리 하겠다
+// RuntimeException 이 발생되면 해당 이 파일로 예외 처리가 됨
+@ControllerAdvice // IoC -> 에러 페이지 찾아가는 녀석
+
+public class GlobalExceptionHandler {
+
+
+
+    @ExceptionHandler(Exception400.class)
+    public String ex400(Exception400 e , HttpServletRequest request){
+        log.warn("=== 400 Bad Request 에러 발생 ===");
+        log.warn("요청 URL: {}",request.getRequestURL());
+        log.warn("에러 메세지: {}",e.getMessage());
+
+        request.setAttribute("msg",e.getMessage());
+        return "err/400";
+    }
+
+
+//    @ExceptionHandler(Exception401.class)
+//    public String ex401(Exception401 e , HttpServletRequest request){
+//        log.warn("=== 401 Unauthorized 에러 발생 ===");
+//        log.warn("요청 URL: {}",request.getRequestURL());
+//        log.warn("에러 메세지: {}",e.getMessage());
+//
+//        request.setAttribute("msg",e.getMessage());
+//        return "err/401";
+//    }
+@ExceptionHandler(Exception401.class)
+@ResponseBody
+public String ex401(Exception401 e , HttpServletRequest request){// 1. 로그 기록 (유지)
+    log.warn("=== 401 Unauthorized 에러 발생 ===");
+    log.warn("요청 URL: {}", request.getRequestURL());
+    log.warn("에러 메세지: {}", e.getMessage());
+
+    // 2. 스크립트 작성 (Text Block 활용)
+    String script = """
+            <script>
+                alert('%s');
+                location.href = '/login-form';
+            </script>
+            """.formatted(e.getMessage());
+
+    return script;
+}
+//    @ExceptionHandler(Exception403.class)
+//    public String ex403(Exception403 e , HttpServletRequest request){
+//        log.warn("=== 403 Forbidden 에러 발생 ===");
+//        log.warn("요청 URL: {}",request.getRequestURL());
+//        log.warn("에러 메세지: {}",e.getMessage());
+//
+//        request.setAttribute("msg",e.getMessage());
+//        return "err/403";
+//    }
+
+@ExceptionHandler(Exception403.class)
+@ResponseBody // 파일 찾지 말고 데이터 반환
+public String ex403(Exception403 e , HttpServletRequest request){
+//    String script = "<script>alert(' "+ e.getMessage() +" ');" +
+//            "history.back();" +
+//            "</script>";
+    String script = """
+            <script>
+                alert('%s');
+                history.back();
+            </script>
+            """.formatted(e.getMessage());
+    return script;
+}
+    @ExceptionHandler(Exception404.class)
+    public String ex404(Exception404 e , HttpServletRequest request){
+        log.warn("=== 404 Not Found 에러 발생 ===");
+        log.warn("요청 URL: {}",request.getRequestURL());
+        log.warn("에러 메세지: {}",e.getMessage());
+
+        request.setAttribute("msg",e.getMessage());
+        return "err/404";
+    }
+
+    @ExceptionHandler(Exception500.class)
+    public String ex500(Exception500 e , HttpServletRequest request){
+        log.warn("=== 500 Internal Server Error 에러 발생 ===");
+        log.warn("요청 URL: {}",request.getRequestURL());
+        log.warn("에러 메세지: {}",e.getMessage());
+
+        request.setAttribute("msg",e.getMessage());
+        return "err/500";
+    }
+
+    //기타 모든 RuntimeException 처리(최후의 보루)
+    @ExceptionHandler(RuntimeException.class)
+    public String handleRuntimeException(RuntimeException e , HttpServletRequest request){
+        log.warn("=== 예상치 못한 런타임 에러 발생 ===");
+        log.warn("요청 URL: {}",request.getRequestURL());
+        log.warn("에러 메세지: {}",e.getMessage());
+
+        request.setAttribute("msg","시스템 오류가 발생 했습니다. 관리자에게 문의해주세요");
+        return "err/500";
+    }
+
+
+}

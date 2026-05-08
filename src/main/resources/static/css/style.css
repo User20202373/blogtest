@@ -1,0 +1,105 @@
+/* 기본 테마: 다크 그린 & 골드 포인트 */
+:root {
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent: #c6a059; /* 골드 */
+    --accent-hover: #e0c080;
+    --border-color: #333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Noto Sans KR', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+/* 네비게이션 바 */
+.navbar {
+    background-color: rgba(18, 18, 18, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: var(--accent) !important;
+    text-transform: uppercase;
+}
+
+.nav-link {
+    color: var(--text-primary) !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent) !important;
+}
+
+/* 카드 UI (게시글 목록) */
+.custom-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    border-color: var(--accent);
+}
+
+.card-title {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* 카드 서브타이틀 (작성자 정보 등) */
+.custom-card .card-subtitle {
+    color: var(--accent) !important; /* 골드색 강제 적용 */
+    font-size: 0.85rem;
+    opacity: 0.9; /* 너무 밝으면 살짝 조절 */
+}
+
+/* 부트스트랩의 text-muted 클래스 강제 덮어쓰기 */
+.text-muted {
+    color: var(--accent) !important; /* 회색 대신 골드색으로 변경 */
+}
+
+/* 추가: 아이콘이나 특정 강조 텍스트도 골드로 맞추고 싶을 때 */
+.card-body .text-muted {
+    color: var(--accent) !important;
+}
+
+/* 버튼 */
+.btn-accent {
+    background-color: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 8px 20px;
+    transition: all 0.3s;
+}
+
+.btn-accent:hover {
+    background-color: var(--accent);
+    color: #121212;
+}
+
+/* 폼 스타일 */
+.form-control {
+    background-color: #252525;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+}
+
+.form-control:focus {
+    background-color: #2a2a2a;
+    border-color: var(--accent);
+    box-shadow: none;
+    color: var(--text-primary);
+}

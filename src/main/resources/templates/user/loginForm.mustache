@@ -1,0 +1,27 @@
+{{>layout/header}}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="p-5 custom-card">
+            <h3 class="text-center fw-bold mb-4" style="color: var(--accent);">SIGN IN</h3>
+            <form action="/login" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label text-secondary">Username</label>
+                    <input type="text" class="form-control form-control-lg" id="username" name="username" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label text-secondary">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-accent btn-lg fw-bold">로그인</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <a href="/joinForm" class="text-decoration-none" style="color: var(--text-secondary); font-size: 0.9rem;">계정이 없으신가요? 회원가입</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{>layout/footer}}

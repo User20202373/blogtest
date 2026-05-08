@@ -14,14 +14,14 @@ spring:
   mustache:
     servlet:
       # 머스태치 템플릿 엔진에서 request 객체와 세션 객체에 접근할 수 있도록 허용하는 설정 추가
-      expose-session-attributes: true
-      expose-request-attributes: true
+      expose-session-attributes: false
+      expose-request-attributes: false
 
 
   #데이터베이스 연결 설정(MySQL)
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/blogtest?serverTimezone=Asia/Seoul
     username: root
     password: root
 #    driver-class-name: org.h2.Driver
@@ -44,7 +44,7 @@ spring:
     # true (기본값) -> 뷰 렌더링까지 DB 세션 유지 됨(LAZY로딩 가능)
     # false : 트랜잭션 종료시 DB 세션 종료(Controller, View LAZY 로딩 불가)
     # false 사용시 Service에서 필요한 데이터를 모두 조회하고 응답시 DTO 셜계 방식으로 처리.
-    open-in-view: true
+    open-in-view: false
     hibernate:
       #create 애플리케이션 시작시 테이블 새로 생성
       #기존 데이터는 모드 삭제됨 create (개발용)

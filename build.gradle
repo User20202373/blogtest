@@ -20,6 +20,8 @@ repositories {
 dependencies {
 	// Source: https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.18.0'
+	// 1. JPA 의존성 추가 (이게 있어야 @Entity, @Id 등을 사용할 수 있습니다)
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
